@@ -1,0 +1,22 @@
+version: '2'
+services:
+
+  kafka:
+    image: darrenmce/kafka-dev 
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LOGS: /kafka-logs
+    volumes:
+      - kafka-vol:/kafka-logs
+
+  kafka-ui:
+    image: sourcelaborg/kafka-webview
+    links:
+      - kafka
+    volumes:
+      - kafka-ui-vol:/app/data
+
+volumes:
+  kafka-vol:
+  kafka-ui-vol:
